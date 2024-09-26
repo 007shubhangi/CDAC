@@ -1,0 +1,2 @@
+hello it is myfile.txt
+Demo of read existing file in same folder :)
