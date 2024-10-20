@@ -1,0 +1,124 @@
+SQL Exercise 3
+=>
+mysql> select concat(upper(substr(sname,1,1)),lower(substr(sname,2))) from s;
++---------------------------------------------------------+
+| concat(upper(substr(sname,1,1)),lower(substr(sname,2))) |
++---------------------------------------------------------+
+| Supllier 1                                              |
+| Supllier 2                                              |
+| Supllier 3                                              |
++---------------------------------------------------------+
+
+
+2. Display all the Supplier names in upper case.
+=>
+mysql> select upper(sname) from s;
++--------------+
+| upper(sname) |
++--------------+
+| SUPLLIER 1   |
+| SUPLLIER 2   |
+| SUPLLIER 3   |
++--------------+
+
+
+3. Display all the Supplier names in lower case.
+=>
+mysql> select lower(sname) from s;
++--------------+
+| lower(sname) |
++--------------+
+| supllier 1   |
+| supllier 2   |
+| supllier 3   |
++--------------+
+
+
+4. Display all the Supplier names padded to 25 characters, with spaces on the left.
+=>
+mysql> select *,lpad(sname,25," ") from s;
++------+------------+--------+--------+---------------------------+
+| S#   | Sname      | Status | City   | lpad(sname,25," ")        |
++------+------------+--------+--------+---------------------------+
+| S1   | SUPLLIER 1 |     10 | London |                SUPLLIER 1 |
+| S2   | SUPLLIER 2 |     20 | Paris  |                SUPLLIER 2 |
+| S3   | SUPLLIER 3 |     30 | Athens |                SUPLLIER 3 |
++------+------------+--------+--------+---------------------------+
+
+
+5. Display all the Supplier names (with ‘la’ replaced by ‘ro’).
+HINT: REPLACE.
+=>
+mysql> select replace(sname,'la','ro') from s;
++--------------------------+
+| replace(sname,'la','ro') |
++--------------------------+
+| SUPLLIER 1               |
+| SUPLLIER 2               |
+| SUPLLIER 3               |
++--------------------------+
+
+6. Implement the above command such that ‘l’ is replaced with ‘r’ and ‘a’ is replaced with ‘o’.
+=>
+mysql> select replace(replace(sname,'l','r'),'a','o')from s;
++-----------------------------------------+
+| replace(replace(sname,'l','r'),'a','o') |
++-----------------------------------------+
+| SUPLLIER 1                              |
+| SUPLLIER 2                              |
+| SUPLLIER 3                              |
++-----------------------------------------+
+
+7. Display the Supplier names and the lengths of the names.
+=>
+mysql> select sname,length(sname) from s;
++------------+---------------+
+| sname      | length(sname) |
++------------+---------------+
+| SUPLLIER 1 |            10 |
+| SUPLLIER 2 |            10 |
+| SUPLLIER 3 |            10 |
++------------+---------------+
+
+
+8. Use the soundex function to search for a supplier by the name of ‘BLOKE’.
+=>
+mysql> select * from s where soundex(sname)=soundex('BLOCK'
+);
+Empty set (0.03 sec)
+
+
+9. Display the Supplier name and the status (as Ten, Twenty, Thirty, etc.).
+=>
+mysql> Select sname,status, replace(status,10,'Ten'),replace(status,20,'Twenty'),replace(status,30,"Thirty") from s;
++------------+--------+--------------------------+-----------------------------+-----------------------------+
+| sname      | status | replace(status,10,'Ten') | replace(status,20,'Twenty') | replace(status,30,"Thirty") |
++------------+--------+--------------------------+-----------------------------+-----------------------------+
+| SUPLLIER 1 |     10 | Ten                      | 10                          | 10                          |
+| SUPLLIER 2 |     20 | 20                       | Twenty                      | 20                          |
+| SUPLLIER 3 |     30 | 30                       | 30                          | Thirty                      |
++------------+--------+--------------------------+-----------------------------+-----------------------------+
+
+
+or
+
+
+mysql> select *,replace(replace(replace(status,10,'Ten'),20,'Twenty'),30,'Thirty') from s;
++------+------------+--------+--------+--------------------------------------------------------------------+
+| S#   | Sname      | Status | City   | replace(replace(replace(status,10,'Ten'),20,'Twenty'),30,'Thirty') |
++------+------------+--------+--------+--------------------------------------------------------------------+
+| S1   | SUPLLIER 1 |     10 | London | Ten
+   |
+| S2   | SUPLLIER 2 |     20 | Paris  | Twenty                                                             |
+| S3   | SUPLLIER 3 |     30 | Athens | Thirty
+   |
++------+------------+--------+--------+--------------------------------------------------------------------+
+
+10. Display the current day (e.g. Thursday).
+=>
+mysql> select dayname(sysdate()) from dual;
++--------------------+
+| dayname(sysdate()) |
++--------------------+
+| Saturday           |
++--------------------+

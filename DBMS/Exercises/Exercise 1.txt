@@ -1,0 +1,280 @@
+                                    SQL Exercise 1
+				
+database : ex1;				
+1. Create the table SEMP with the following structure:-
+EMPNO CHAR(4)
+EMPNAME CHAR(20)
+BASIC FLOAT
+DEPTNO CHAR(2)
+DEPTHEAD CHAR(4)
+=>
+create table SEMP
+(EMPNO CHAR(4),
+EMPNAME CHAR(20),
+BASIC FLOAT,
+DEPTNO CHAR(2),
+DEPTHEAD CHAR(4)); 
+mysql> desc SEMP;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| EMPNO    | char(4)  | YES  |     | NULL    |       |
+| EMPNAME  | char(20) | YES  |     | NULL    |       |
+| BASIC    | float    | YES  |     | NULL    |       |
+| DEPTNO   | char(2)  | YES  |     | NULL    |       |
+| DEPTHEAD | char(4)  | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+
+
+2. Create the table SDEPT with the following structure:-
+DEPTNO CHAR(2)
+DEPTNAME CHAR(15)
+=> 
+mysql>create table SDEPT(DEPTNO CHAR(2),
+DEPTNAME CHAR(15));
+mysql> desc sdept;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| DEPTNO   | char(2)  | YES  |     | NULL    |       |
+| DEPTNAME | char(15) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+
+
+3. Insert into the SDEPT table the following values:-
+10, Development
+20, Training
+=>
+mysql> select * from sdept;
++--------+--------------+
+| DEPTNO | DEPTNAME     |
++--------+--------------+
+| 10     | Developement |
+| 20     | Training     |
++--------+--------------+
+
+4. Insert into the SEMP table the following values:-
+0001, SUNIL, 6000, 10
+0002, HIREN, 8000, 20
+0003, ALI, 4000, 10, 0001
+0004, GEORGE, 6000, 0002
+=>
+mysql> insert into semp values(0001, "SUNIL", 6000, 10,null),
+    -> (0002, "HIREN", 8000, 20,null),
+    -> (0003, "ALI", 4000, 10, 0001),
+    -> (0004, "GEORGE", 6000, 0002,null);
+mysql> select * from semp;
++-------+---------+-------+--------+----------+
+| EMPNO | EMPNAME | BASIC | DEPTNO | DEPTHEAD |
++-------+---------+-------+--------+----------+
+| 1     | SUNIL   |  6000 | 10     | NULL     |
+| 2     | HIREN   |  8000 | 20     | NULL     |
+| 3     | ALI     |  4000 | 10     | 1        |
+| 4     | GEORGE  |  6000 | 2      | NULL     |
++-------+---------+-------+--------+----------+
+
+Create S, P, J, SPJ tables as specified below and insert a few rows in each table:-
+SUPPLIER
+(S#, Sname, Status, City) - S
+=>
+mysql> CREATE TABLE SUPPLIER(
+    ->     `S#` VARCHAR(10) ,
+    ->     `Sname` VARCHAR(50),
+    ->     `Status` INT,
+    ->     `City` VARCHAR(50)
+    -> );
+mysql> alter table SUPPLIER rename to S;	
+	
+	
+PARTS
+(P#, Pname, Color, Weight, City) -  P
+=>
+mysql> CREATE TABLE P(
+    -> `P#` varchar(50),
+    -> Pname VARCHAR(50),
+    -> `Color` VARCHAR(20),
+	-> weight FLOAT;
+    -> `City` varchar(50)
+    -> );
+	
+PROJECTS
+(J#, Jname, City)-J
+=>
+mysql> CREATE TABLE PROJECTS(
+    -> `J#` varchar(50),
+    -> Jname VARCHAR(50),
+    -> `City` varchar(50)
+    -> );
+mysql> alter table PROJECTS rename to J;	
+	
+SUPPLIER-PARTS-PROJECT
+(S#, P#, J#, Qty)-SPJ
+=>
+mysql> CREATE TABLE SPJ(
+    -> `S#` VARCHAR(20),
+    -> `P#` VARCHAR(20),
+    -> `J#` VARCHAR(20),
+    -> Qty int
+    -> );
+
+
+Sample data for S# column:- ‘S1’, ‘S2’, ‘S3’, etc.
+=>
+mysql> insert into S values(
+    -> "S1",
+    -> "SUPLLIER 1",
+    -> 10,
+    -> "London");
+
+mysql> insert into S values(
+    -> "S2",
+    -> "SUPLLIER 2",
+    -> 20,
+    -> "Paris"
+    -> );
+
+mysql> insert into S values(
+    -> "S3",
+    -> "SUPLLIER 3",
+    -> 30,
+    -> "Athens"
+    -> );
+
+mysql> select * from S;
++------+------------+--------+--------+
+| S#   | Sname      | Status | City   |
++------+------------+--------+--------+
+| S1   | SUPLLIER 1 |     10 | London |
+| S2   | SUPLLIER 2 |     20 | Paris  |
+| S3   | SUPLLIER 3 |     30 | Athens |
++------+------------+--------+--------+
+
+
+Sample data for P# column:- ‘P1’, ‘P2’, ‘P3’, etc.
+=>
+mysql> insert into p values("p1","PART 1","YELLOW",52.10,"L
+ondon");
+mysql> insert into p values("p2","PART 2","BLUE",72.10,"London");
+mysql> insert into p values("p3","PART 3","YELLOW",12.10,"ATHENS");
+
+Sample data for J# column:- ‘J1’, ‘J2’, ‘J3’, etc.
+Sample data for Status column:- 10, 20, 30, etc.
+
+Write the SELECT queries to do the following:-
+5. Display all the data from the S table.
+=>
+mysql> select * from S;
++------+------------+--------+--------+
+| S#   | Sname      | Status | City   |
++------+------------+--------+--------+
+| S1   | SUPLLIER 1 |     10 | London |
+| S2   | SUPLLIER 2 |     20 | Paris  |
+| S3   | SUPLLIER 3 |     30 | Athens |
++------+------------+--------+--------+
+
+6. Display only the S# and SNAME fields from the S table.
+=>
+mysql> select `S#`,Sname from S;
++------+------------+
+| S#   | Sname      |
++------+------------+
+| S1   | SUPLLIER 1 |
+| S2   | SUPLLIER 2 |
+| S3   | SUPLLIER 3 |
++------+------------+
+
+7. Display the PNAME and COLOR from the P table for the CITY=”London”.
+mysql> SELECT PNAME,COLOR FROM P WHERE CITY="LONDON";
++--------+--------+
+| PNAME  | COLOR  |
++--------+--------+
+| PART 1 | YELLOW |
+| PART 2 | BLUE   |
++--------+--------+
+
+8. Display all the Suppliers from London.
+=>
+mysql> select Sname from s where city="london";
++------------+
+| Sname      |
++------------+
+| SUPLLIER 1 |
++------------+
+
+9. Display all the Suppliers from Paris or Athens.
+=>
+mysql> select Sname from s where city="paris" or city="athens";
++------------+
+| Sname      |
++------------+
+| SUPLLIER 2 |
+| SUPLLIER 3 |
+
+10. Display all the Projects in Athens.
+=>
+mysql> select jname from j where city="athens";
++-----------+
+| jname     |
++-----------+
+| Project 2 |
++-----------+
+
+11. Display all the Partnames with the weight between 12 and 14 (inclusive of both).
+=>
+mysql> select pname from p where weight between
+12 and 14;
++--------+
+| pname  |
++--------+
+| PART 3 |
+
+12. Display all the Suppliers with a Status greater than or equal to 20.
+=>
++------+------------+--------+--------+
+| S#   | Sname      | Status | City   |
++------+------------+--------+--------+
+| S2   | SUPLLIER 2 |     20 | Paris  |
+| S3   | SUPLLIER 3 |     30 | Athens |
++------+------------+--------+--------+
+
+mysql> select * from s where status >=20;
++------+------------+--------+--------+
+| S#   | Sname      | Status | City   |
++------+------------+--------+--------+
+| S2   | SUPLLIER 2 |     20 | Paris  |
+| S3   | SUPLLIER 3 |     30 | Athens |
+
+13. Display all the Suppliers except the Suppliers from London.
+=>
+mysql> select * from s where city!="London";
+
++------+------------+--------+--------+
+| S#   | Sname      | Status | City   |
++------+------------+--------+--------+
+| S2   | SUPLLIER 2 |     20 | Paris  |
+| S3   | SUPLLIER 3 |     30 | Athens |
++------+------------+--------+--------+
+
+14. Display only the Cities from where the Suppliers come from.
+=>
+mysql> select city from s;
++--------+
+| city   |
++--------+
+| London |
+| Paris  |
+| Athens |
++--------+
+
+15. Assuming that the Part Weight is in GRAMS, display the same in MILLIGRAMS and KILOGRAMS.
+=>
+
+mysql> select weight,weight*1000 as weight_mg,
+    -> weight/1000 as weight_kg from p;
++--------+--------------------+----------------------+
+| weight | weight_mg          | weight_kg            |
++--------+--------------------+----------------------+
+|   52.1 | 52099.998474121094 |  0.05209999847412109 |
+|   72.1 |   72099.9984741211 |  0.07209999847412109 |
+|   12.1 | 12100.000381469727 | 0.012100000381469727 |
++--------+--------------------+----------------------+

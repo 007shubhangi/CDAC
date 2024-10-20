@@ -1,0 +1,77 @@
+SQL Exercise 2
+
+1. Display the Supplier table in the descending order of CITY.
+=>
+mysql> select * from s order by city desc;
++------+------------+--------+--------+
+| S#   | Sname      | Status | City   |
++------+------------+--------+--------+
+| S2   | SUPLLIER 2 |     20 | Paris  |
+| S1   | SUPLLIER 1 |     10 | London |
+| S3   | SUPLLIER 3 |     30 | Athens |
++------+------------+--------+--------+
+
+
+2. Display the Part Table in the ascending order of CITY and within the city in the ascending order of Part names.
+=>
+mysql> select * from p order by city and pna
+me asc;
++------+--------+--------+--------+--------+
+| P#   | Pname  | Color  | Weight | city   |
++------+--------+--------+--------+--------+
+| p1   | PART 1 | YELLOW |   52.1 | London |
+| p2   | PART 2 | BLUE   |   72.1 | London |
+| p3   | PART 3 | YELLOW |   12.1 | ATHENS |
++------+--------+--------+--------+--------+
+
+3. Display all the Suppliers with a status between 10 and 20.
+=>
+mysql> select * from s where status between 10 and 20;
++------+------------+--------+--------+
+| S#   | Sname      | Status | City   |
++------+------------+--------+--------+
+| S1   | SUPLLIER 1 |     10 | London |
+| S2   | SUPLLIER 2 |     20 | Paris  |
++------+------------+--------+--------+
+
+4. Display all the Parts and their Weight, which are not in the range of 10 and 15.
+=>
+mysql> select "p#",weight from p where weigh
+t not between 10 and 15;
++----+--------+
+| p# | weight |
++----+--------+
+| p# |   52.1 |
+| p# |   72.1 |
+
+
+5. Display all the Part names starting with the letter ‘S’.
+=>
+mysql> select pname from p where pname like
+"s%";
+Empty set (0.11 sec)
+
+6. Display all the Suppliers, belonging to cities starting with the letter ‘L’.
+=>
+mysql> select * from s where city like "L%";
+
++------+------------+--------+--------+
+| S#   | Sname      | Status | City   |
++------+------------+--------+--------+
+| S1   | SUPLLIER 1 |     10 | London |
++------+------------+--------+--------+
+
+7. Display all the Projects, with the third letter in JNAME as ‘n’.
+=>
+mysql> SELECT * FROM J WHERE JNAME LIKE '__n%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM J WHERE JNAME LIKE '__o
+%';
++------+-----------+--------+
+| J#   | Jname     | City   |
++------+-----------+--------+
+| j1   | Project 1 | London |
+| j2   | Project 2 | Athens |
+| j3   | Project 3 | Paris  |
++------+-----------+--------+
