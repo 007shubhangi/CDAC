@@ -1,0 +1,46 @@
+SQL Exercise 6 
+
+1. Display all the Suppliers with the same Status as the supplier, ‘cleark’. 
+ 
+mysql> select sname from supplier where status = (select status from supplier where sname = 'cleark');
+Empty set (0.00 sec)
+/*******************************************************************************/
+
+2. Display all the Employees in the same department as the employee ‘MILLER’. 
+
+mysql> select * from semp where deptno = (select deptno from semp wher
+e empname = 'miller');
+Empty set (0.00 sec)
+/**************************************************************************/
+ 
+3. Display all the Parts which have more Weight than all the Red parts. 
+ mysql> select pname from parts where weight> (select weight from parts where color ='red');
++------------+
+| pname      |
++------------+
+| ply sheets |
++------------+
+/********************************************************************/
+
+4. Display all the Projects going on in the same city as the project ‘TAPE’. 
+
+mysql> select jname from projects where city = (select city  from proj
+ects where jname='TAPE');
+Empty set (0.00 sec)
+
+/***********************************************************************************/
+ 
+5. Display all the Parts with Weight less than all the Green parts.
+
+ 
+ /***********************************************************************************/
+6. Display the name of the Supplier who has sold the maximum Quantity (in one 
+sale). 
+
+ 
+7. Display the name of the Employee with the minimum Salary. 
+ 
+8. Display the name of the Supplier who has sold the maximum overall Quantity (sum 
+of Sales). 
+ 
+9. Display the name of the Department with the maximum number of Employees.
