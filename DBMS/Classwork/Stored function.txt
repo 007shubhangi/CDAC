@@ -1,0 +1,113 @@
+					stored function
+	#must return values so need variable to store that values i.e returns int,char,float
+    #should mention deterministic or nondeterministic	
+	
+	
+ ##function without passing argument	
+ ##no parameters
+mysql> delimiter ;
+mysql> delimiter //
+mysql> create function abc()//parameterless  function
+    -> returns int
+    -> deterministic
+    -> begin
+    -> return 10;
+    -> end;//
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> delimiter ;
+mysql> delimiter //
+mysql> create procedure xy()
+    -> begin
+    -> declare x int;
+    -> set x=abc();
+    -> insert into temp values(x,'after abc');
+    -> end;//
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> delimiter ;
+mysql> call xy();
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select * from temp;
++------+-----------+
+| fir  | sec       |
++------+-----------+
+|   10 | after abc |
++------+-----------+
+1 row in set (0.00 sec)					
+
+*****************************************************************************
+
+  ##Function with parameters
+
+mysql> delimiter //
+mysql> create function abc(y int) //parameterized function
+    -> returns int
+    -> deterministic
+    -> begin
+    -> return y*y;
+    -> end;//
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> delimiter ;
+mysql> delimiter //
+mysql> create procedure abc()
+    -> begin
+    -> declare x int ;
+    -> set x=abc(5);
+    -> insert into temp values(x,'after abc');
+    -> end;//
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> delimiter ;
+mysql> call abc();
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from temp;
++------+-----------+
+| fir  | sec       |
++------+-----------+
+|   25 | after abc |
++------+-----------+
+
+**********************************************************************************
+##Function with parameters and in procedure values takesn from other tableS 
+
+mysql> delimiter //
+mysql> create function abcd(sal int)
+    -> returns boolean
+    -> deterministic
+    -> begin
+    -> if sal>5000 then
+    ->          return TRUE;
+    -> else
+    -> return FALSE;
+    -> end if;
+    -> end;//
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> delimiter ;
+mysql> delimiter //
+mysql> create procedure pqrs()
+    -> begin
+    -> declare salary int;
+    -> select sal into salary from employee where empno=1;
+    -> if abcd(salary) then
+    -> insert into temp values(salary,'>5000');
+    -> else
+    -> insert into temp values(salary,'<5000');
+    -> end if;
+    -> end;//
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> delimiter ;
+mysql> call pqrs();
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from temp;
++------+-------+
+| fir  | sec   |
++------+-------+
+| 8000 | >5000 |
++------+-------+
